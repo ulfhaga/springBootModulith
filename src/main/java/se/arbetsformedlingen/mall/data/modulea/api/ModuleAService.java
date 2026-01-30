@@ -17,6 +17,7 @@ public class ModuleAService {
 
     public String processOrder(String orderId) {
         // Business logic placeholder
+
         return "Order %s processed by Module A".formatted(orderId);
     }
 
