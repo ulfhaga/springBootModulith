@@ -1,16 +1,8 @@
 package se.arbetsformedlingen.mall.data.shared.events;
 
-public class OrderCreatedEvent {
+/**
+ * Domain event published when an order has been created.
+ */
+public record OrderCreatedEvent(String orderId, String customerId) {
 
-    public  OrderCreatedEvent(String orderId, String customerId) {
-    }
-
-    public String getOrderId() {
-        return "1";
-    }
-
-    public String getCustomerId() {
-        return "1";
-    }
 }
-
