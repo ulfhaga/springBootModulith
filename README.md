@@ -14,11 +14,9 @@ domain events.
 ./mvnw test
 ```
 
-To run the Spring Modulith structural analysis directly:
+The test suite includes `ApplicationModules.verify()` to check the Spring
+Modulith structure.
 
-```sh
-./mvnw -q -DskipTests spring-modulith:analyze
-```
 
 ## Run
 
