@@ -5,9 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 
-import se.arbetsformedlingen.mall.data.modulea.api.ModuleAEvent;
-import se.arbetsformedlingen.mall.data.moduleb.api.ModuleBEvent;
 import se.arbetsformedlingen.mall.data.shared.events.OrderCreatedEvent;
+import se.arbetsformedlingen.mall.data.shared.events.PaymentHandledEvent;
 
 /**
  * Central listener that reacts to events published by other application modules.
@@ -24,15 +23,8 @@ class CentralEventListener {
     }
 
     @ApplicationModuleListener
-    void onModuleAEvent(ModuleAEvent event) {
-        log.info("CentralEventListener received ModuleAEvent: message={}, source={}",
-                event.message(), event.source());
-    }
-
-    @ApplicationModuleListener
-    void onModuleBEvent(ModuleBEvent event) {
-        log.info("CentralEventListener received ModuleBEvent: message={}, source={}",
-                event.message(), event.source());
+    void onPaymentHandled(PaymentHandledEvent event) {
+        log.info("CentralEventListener received PaymentHandledEvent: paymentId={}", event.paymentId());
     }
 }
 
