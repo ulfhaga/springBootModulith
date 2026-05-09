@@ -1,26 +1,81 @@
 # springBootModulith
-Testing Spring Boot Modulith
 
-# Run
+Sample Spring Boot Modulith application with two HTTP-facing modules and shared
+domain events.
 
-	mvn spring-boot:run
+## Requirements
 
-or
+- Java 21
+- Maven Wrapper (`./mvnw`)
 
-	java -jar target/data-*.jar
+## Build and test
 
-# Test Module A
+```sh
+./mvnw test
+```
+
+The test suite includes `ApplicationModules.verify()` to check the Spring
+Modulith structure.
+
+
+## Run
+
+```sh
+./mvnw spring-boot:run
+```
+
+or:
+
+```sh
+./mvnw package
+java -jar target/data-*.jar
+```
+
+Enable the local profile if you need the H2 browser console at `/h2-console`:
+
+```sh
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+```
+
+## Endpoints
+
+### Module A
+
+```sh
 curl -X POST http://localhost:8080/api/module-a/orders/123
+```
 
-# Test Module B
+Expected response:
+
+```text
+Order 123 processed by Module A
+```
+
+Processing an order publishes `OrderCreatedEvent`.
+
+### Module B
+
+```sh
 curl -X POST http://localhost:8080/api/module-b/payments/456
+```
 
+Expected response:
 
-## Troubleshooting
+```text
+Payment 456 handled by Module B
+```
 
-    ./mvnw -q -DskipTests spring-modulith:analyze
+Handling a payment publishes `PaymentHandledEvent`.
+
+## Modulith structure
+
+- `modulea` exposes the order endpoint and publishes shared order events.
+- `moduleb` exposes the payment endpoint and publishes shared payment events.
+- `shared.events` contains public event contracts exposed as a named interface.
+- `eventlistener` centralizes event listeners for cross-module reactions.
 
 ## Reference Documentation
+
 For further reference, please consider the following sections:
 
-* [Spring Modulith](https://docs.spring.io/spring-modulith/reference/)
+- [Spring Modulith](https://docs.spring.io/spring-modulith/reference/)
